@@ -1,12 +1,9 @@
 package edu.knoldus
 
-
-import org.apache.log4j.Logger
-
 import scala.util.Random
 
 object PersonOperation {
-  val log: Logger = Logger.getLogger(this.getClass)
+
 
   def doTask(person: Person): Response = {
     person match {
@@ -26,8 +23,8 @@ object PersonOperation {
     override def task(): Response = {
 
       def innerRoll(times: Int): String = {
-        val startLimit = 1
-        val endLimit = 6
+        val startLimit: Int = 1
+        val endLimit: Int = 6
         startLimit + Random.nextInt(endLimit).toString match {
           case "1" | "6" if times == 2 => "winner"
           case "1" | "6" => innerRoll(times + 1)
@@ -41,7 +38,7 @@ object PersonOperation {
 
   case class Trainer() extends Person {
     override def task(): Response = {
-      val limit = 51
+      val limit: Int = 51
       Response(s"Today's attendance is ${Random.nextInt(limit)}")
     }
   }
@@ -53,28 +50,28 @@ object PersonOperation {
       def blog(mapOfBlog: Map[String, Int], times: Int): Map[String, Int] = {
 
         if (times == 5) {
-          val topic: String = selectTopic(mapOfBlog)
+          val topic: String = selectTopic
           val count: Option[Int] = mapOfBlog.get(topic)
           mapOfBlog ++ Map((topic, count.fold(0)(identity) + 1))
         }
         else {
-          val topic: String = selectTopic(mapOfBlog)
+          val topic: String = selectTopic
           val count: Option[Int] = mapOfBlog.get(topic)
-          log.info(mapOfBlog)
           blog(mapOfBlog ++ Map((topic, count.fold(0)(identity) + 1)), times + 1)
         }
       }
-
       val res = blog(blogList, 1)
-      log.info(res)
+      print(res)
       Response(s" Favourite topic is ${getFavourite(res)}")
     }
 
-    def selectTopic(mapOfBlog: Map[String, Int]): String = {
-      val topics: List[String] = mapOfBlog.keySet.toList
-      val res = topics(Random.nextInt(topics.length))
-      log.info(res)
-      res
+    def selectTopic: String = {
+      val topicOne: String = "java"
+      val topicTwo: String = "kafka"
+      val topicThree: String = "scala"
+      val topicFour: String = "akka"
+      val topicStack = List(topicOne, topicTwo, topicThree, topicFour)
+      topicStack(Random.nextInt(topicStack.length))
     }
 
     def getFavourite(mapOfBlog: Map[String, Int]): String = {
@@ -88,10 +85,7 @@ object PersonOperation {
         }
       }
 
-      val res = innerFavourite(mapOfBlog.toList)
-      log.info(res)
-      res
-
+      innerFavourite(mapOfBlog.toList)
     }
 
   }
