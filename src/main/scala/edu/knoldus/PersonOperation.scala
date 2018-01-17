@@ -47,7 +47,7 @@ object PersonOperation {
 
     override def task(): Response = {
 
-      def blog(mapOfBlog: Map[String, Int], times: Int): Map[String, Int] = {
+       def blog(mapOfBlog: Map[String, Int], times: Int): Map[String, Int] = {
 
         if (times == 5) {
           val topic: String = selectTopic
@@ -61,11 +61,10 @@ object PersonOperation {
         }
       }
       val res = blog(blogList, 1)
-      print(res)
       Response(s" Favourite topic is ${getFavourite(res)}")
     }
 
-    def selectTopic: String = {
+   private def selectTopic: String = {
       val topicOne: String = "java"
       val topicTwo: String = "kafka"
       val topicThree: String = "scala"
@@ -74,13 +73,13 @@ object PersonOperation {
       topicStack(Random.nextInt(topicStack.length))
     }
 
-    def getFavourite(mapOfBlog: Map[String, Int]): String = {
+   private def getFavourite(mapOfBlog: Map[String, Int]): String = {
       val max: Int = mapOfBlog.valuesIterator.max
 
       def innerFavourite(inputList: List[(String, Int)]): String = {
         inputList match {
           case Nil => "not valid"
-          case head :: _ if head._2 == max => head._1
+          case (key,value) :: _ if value == max => key
           case _ :: tail => innerFavourite(tail)
         }
       }

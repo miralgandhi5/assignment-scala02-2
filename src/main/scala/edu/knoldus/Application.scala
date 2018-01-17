@@ -7,15 +7,14 @@ object Application extends App{
   val log = Logger.getLogger(this.getClass)
   val payment =1000
   val mode ="pay tm"
-  val blogger = Blogger(Map[String,Int]("Scala" -> 2, "Java" -> 5, "Kafka" -> 6))
+  val blogger = Blogger(Map[String,Int]("scala" -> 2, "java" -> 5, "kafka" -> 6))
   val trainer = Trainer()
   val gamer = Gamer("miral")
-  log.info(s"Payment to be made for bill of $payment is ${Payment.paymentService(mode,payment)}")
-  log.info(s"${blogger.blogList} before writing blog")
-  log.info(PersonOperation.doTask(blogger))
-  log.info(s"${blogger.blogList} after writing blog")
-  log.info(PersonOperation.doTask(gamer))
-  log.info(PersonOperation.doTask(trainer))
+  log.info(s"Payment to be made for bill of $payment is ${Payment.paymentService(mode,payment)}\n")
+  log.info(s"${blogger.blogList} before writing blog\n")
+  log.info(s" Blogger ${PersonOperation.doTask(blogger)}\n")
+  log.info(s" Gamer ${PersonOperation.doTask(gamer)}\n")
+  log.info(s" Trainer ${PersonOperation.doTask(trainer)}\n")
 
 
 
